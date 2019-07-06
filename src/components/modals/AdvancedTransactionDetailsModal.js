@@ -3,7 +3,7 @@
 import { PrimaryButton, SecondaryButton } from 'edge-components'
 import { type EdgeTransaction } from 'edge-core-js'
 import React, { Component } from 'react'
-import { Alert, Clipboard, Linking, TouchableOpacity } from 'react-native'
+import { Alert, Clipboard, Linking, TouchableOpacity, View } from 'react-native'
 
 import { MATERIAL_COMMUNITY, TELESCOPE } from '../../constants/indexConstants.js'
 import { scale } from '../../lib/scaling.js'
@@ -12,6 +12,7 @@ import Text from '../../modules/UI/components/FormattedText/index'
 import { Icon } from '../../modules/UI/components/Icon/Icon.ui.js'
 import { InteractiveModal } from '../../modules/UI/components/Modals/InteractiveModal/InteractiveModal.ui.js'
 import styles, { activeOpacity } from '../../styles/scenes/TransactionDetailsStyle.js'
+import { ellipsizeString } from '../../util/utils.js'
 
 export type AdvancedTransactionDetailsModalOwnProps = {
   ...EdgeTransaction,
@@ -47,6 +48,10 @@ export class AdvancedTransactionDetailsModal extends Component<AdvancedTransacti
   }
 
   render () {
+    const { otherParams, txid } = this.props
+    const inputs = otherParams.inputs || []
+    const outputs = otherParams.outputs || []
+
     return (
       <InteractiveModal>
         <InteractiveModal.Icon>
@@ -59,10 +64,23 @@ export class AdvancedTransactionDetailsModal extends Component<AdvancedTransacti
 
         <InteractiveModal.Body>
           <InteractiveModal.Description style={{ textAlign: 'center' }}>
-            <Text>{this.props.txid}</Text>
+            <Text>{`${txid}\n\n`}</Text>
+            {inputs.length > 0 && <Text>Inputs:{`\n`}</Text>}
+            {inputs.map(input => {
+              return (
+                <Text key={input.hash} ellipsizeMode={'middle'} numberOfLines={1}>{ellipsizeString(input.hash, 26)}: {`${input.index} \n`}</Text>
+              )
+            })}{`\n`}
+            {inputs.length > 0 && <Text>Output Amounts:{`\n`}</Text>}
+            {outputs.map(output => {
+              return (
+                <Text key={output.index}>{`${output.value}\n`}</Text>
+              )
+            })}{`\n`}
+            <Text>Total Size:{`\n`}</Text>
+            <Text>Virtual Size:</Text>
           </InteractiveModal.Description>
         </InteractiveModal.Body>
-
         <InteractiveModal.Footer>
           <InteractiveModal.Row>
             <InteractiveModal.Item>
