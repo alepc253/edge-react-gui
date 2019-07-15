@@ -51,14 +51,15 @@ cat >ios/edge-core/index.html <<HTML
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
+    <script src="polyfill.js"></script>
     <script src="edge-core.js"></script>
     <script>
-      let loading = 0
+      var loading = 0
 
       function load (path) {
         ++loading
 
-        const script = document.createElement('script')
+        var script = document.createElement('script')
         script.charset = 'utf-8'
         script.async = true
         function scriptDone () {
@@ -83,6 +84,7 @@ cat >ios/edge-core/index.html <<HTML
   </body>
 </html>
 HTML
+cp ./node_modules/core-js-bundle/minified.js ./ios/edge-core/polyfill.js
 cp ./node_modules/edge-core-js/lib/react-native/edge-core.js ./ios/edge-core
 cp ./node_modules/edge-currency-accountbased/lib/react-native/edge-currency-accountbased.js ./ios/edge-core
 cp ./node_modules/edge-currency-bitcoin/lib/react-native/edge-currency-bitcoin.js ./ios/edge-core
