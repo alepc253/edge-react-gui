@@ -30,6 +30,7 @@ export const currencyPlugins = {
   },
   stellar: true,
   ripple: true,
+  binance: true,
   // edge-currency-bitcoin:
   bitcoin: true,
   bitcoincash: true,
@@ -52,7 +53,7 @@ export const currencyPlugins = {
   vertcoin: true,
   zcoin: true,
   // edge-currency-monero:
-  monero: true // { apiKey: '...' }
+  monero: true // { apiKey: '...' },
 }
 
 export const ratePlugins = {

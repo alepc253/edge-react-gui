@@ -56,7 +56,8 @@ export const CURRENCY_PLUGIN_NAMES = {
   UFO: 'ufo',
   VTC: 'vertcoin',
   XLM: 'stellar',
-  XZC: 'zcoin'
+  XZC: 'zcoin',
+  BNB: 'binance'
 }
 
 export const getSpecialCurrencyInfo = (currencyCode: string): Object => {
